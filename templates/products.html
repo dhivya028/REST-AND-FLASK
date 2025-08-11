@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+        h1 {
+            color: darkgreen;
+        }
+        .product {
+            background: #f2f2f2;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        form {
+            margin-top: 30px;
+        }
+        input[type="text"], input[type="number"] {
+            padding: 8px;
+            margin: 5px 0;
+            width: 200px;
+        }
+        button {
+            padding: 6px 12px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Available Products</h1>
+
+    {% if products %}
+        {% for product in products %}
+            <div class="product">
+                <strong>{{ product.name }}</strong> – ₹{{ product.price }}
+                <form action="/delete/{{ product.id }}" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No products available.</p>
+    {% endif %}
+
+    <hr>
+
+    <h2>Add New Product</h2>
+    <form action="/add" method="POST">
+        <input type="text" name="name" placeholder="Product Name" required><br>
+        <input type="number" name="price" placeholder="Price" required><br>
+        <button type="submit">Add Product</button>
+    </form>
+</body>
+</html>
